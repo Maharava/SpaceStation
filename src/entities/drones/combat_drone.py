@@ -13,8 +13,13 @@ class CombatDrone(DroneBase):
         self.weapon_damage = 5
         self.attack_range = 200
         
-        # Visual
+        # Visual properties
         self.color = (255, 50, 50)  # Red for combat
+        self.drone_type = "combat_drone"  # Used for asset loading
+        self.animation_frame = 0
+        self.max_frames = 4
+        self.animation_speed = 0.1
+        self.animation_counter = 0
         
     def update(self, physics, ship, enemies=None):
         """Update combat drone behavior"""
@@ -25,6 +30,12 @@ class CombatDrone(DroneBase):
             # Handle weapon cooldown
             if self.weapon_cooldown > 0:
                 self.weapon_cooldown -= 1
+            
+            # Update animation
+            self.animation_counter += self.animation_speed
+            if self.animation_counter >= 1:
+                self.animation_counter = 0
+                self.animation_frame = (self.animation_frame + 1) % self.max_frames
             
             # If enemies are provided, find closest and attack
             if enemies and len(enemies) > 0:
@@ -79,7 +90,8 @@ class CombatDrone(DroneBase):
                     'velocity_x': dx * 8,
                     'velocity_y': dy * 8,
                     'damage': self.weapon_damage,
-                    'lifetime': 40
+                    'lifetime': 40,
+                    'color': (255, 150, 50)  # Orange projectile
                 }
                 
                 return projectile
@@ -88,3 +100,31 @@ class CombatDrone(DroneBase):
         except Exception as e:
             logger.error(f"Error attacking enemy: {str(e)}")
             return None
+    
+    def render(self, renderer, camera_x, camera_y):
+        """Custom rendering method for combat drone"""
+        try:
+            screen_x = self.x - camera_x
+            screen_y = self.y - camera_y
+            
+            # Only render if on screen
+            if (-self.radius <= screen_x <= renderer.width + self.radius and
+                -self.radius <= screen_y <= renderer.height + self.radius):
+                
+                # Use the new renderer method for drones
+                renderer.draw_drone(screen_x, screen_y, self.drone_type, self.radius)
+                
+                # Draw attack range indicator when weapon is ready
+                if self.weapon_cooldown <= 0:
+                    # Semi-transparent circle showing attack range
+                    pygame.draw.circle(
+                        renderer.screen,
+                        (255, 50, 50, 30),  # Very transparent red
+                        (int(screen_x), int(screen_y)),
+                        self.attack_range,
+                        1  # Width of the circle line
+                    )
+        except Exception as e:
+            logger.error(f"Error rendering combat drone: {str(e)}")
+            # Fallback to simple circle if rendering fails
+            renderer.draw_circle(screen_x, screen_y, self.radius, self.color)
