@@ -25,6 +25,7 @@ This stage focuses on creating a character selection screen.
    - **Attack**: Offensive stat.
    - **XP**: Experience points.
    - **Level**: Hero's current level.
+   - **Rank**: Hero's rank from 1-5, affecting appearance and stats.
 
 3. **Equipment Slots**:
    - **Enhancement**: Boosts Attack.
@@ -32,11 +33,19 @@ This stage focuses on creating a character selection screen.
    - **Stim**: Enhances HP.
    - Each item has a rarity tier (common, rare, epic, prototype) and a secondary ability.
 
-4. **Tooltips**:
+4. **Hero Ranks**:
+   - Heroes start at Rank 1 and can progress to Rank 5.
+   - Each rank increases base stats and changes hero appearance.
+   - Hero images follow the naming convention: hero_X.png (where X is the rank number).
+
+5. **Tooltips**:
    - Mousing over equipment slots shows a tooltip with slot purpose or equipped gear details.
 
-5. **Navigation**:
+6. **Navigation**:
    - A non-functional "Home" button on the character collection screen.
+
+7. **GUI size**:
+   - Ideal for common iPhone and Android screens
 
 #### Data Structure
 - **Hero Data**:
@@ -117,8 +126,29 @@ data/
 └── gear/
 ```
 ```
-```
 
 ### Notes
 - Placeholder functionality for equipping gear and home screen navigation will be added in future stages.
 ```
+
+Stage Two: Equipment System
+Since Stage One focused on viewing heroes and their stats, the natural progression would be implementing the equipment functionality:
+
+Equipment Collection UI
+
+Create a gear inventory screen
+Allow viewing available equipment items
+Display equipment stats and rarity
+Equipping Mechanics
+
+Add ability to drag and drop or select gear for equipment slots
+Implement stat changes when equipping/unequipping items
+Add visual indicators for equipped vs. unequipped items
+Equipment Tooltips Enhancement
+
+Add detailed tooltips with item stats, effects, and comparisons
+Show preview of stat changes when hovering over potential equipment
+Equipment Sorting/Filtering
+
+Add ability to sort by rarity, type, or stat bonus
+This would complete the character management aspect before moving to Stage Three, which could focus on implementing the combat system with the equipped heroes.

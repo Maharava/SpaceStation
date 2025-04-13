@@ -1,0 +1,23 @@
+{
+  "heroes": [
+    {
+      "name": "Europa",
+      "level": 1,
+      "XP": 0,
+      "rank": 1,
+      "equipment": []
+    },
+    {
+      "name": "Ganymede",
+      "level": 1,
+      "XP": 0,
+      "rank": 1,
+      "equipment": [
+        {
+          "name": "Sweat Band",
+          "rarity": "common"
+        }
+      ]
+    }
+  ]
+}

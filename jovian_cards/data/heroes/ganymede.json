@@ -1,0 +1,9 @@
+{
+  "name": "Ganymede",
+  "description": "A skilled tactician from the Jovian moons.",
+  "level_1_stats": {
+    "HP": 110,
+    "Armour": 25,
+    "Attack": 30
+  }
+}

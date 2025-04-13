@@ -1,0 +1,4 @@
+#jovian_cards/jovian_cards/requirements.txt
+pygame
+json
+os

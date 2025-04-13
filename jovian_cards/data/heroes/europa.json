@@ -1,0 +1,9 @@
+{
+  "name": "Europa",
+  "description": "A brave warrior from the Jovian moons.",
+  "level_1_stats": {
+    "HP": 100,
+    "Armour": 30,
+    "Attack": 30
+  }
+}
