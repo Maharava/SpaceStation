@@ -13,6 +13,7 @@ class HeroDetailScreen:
         self.screen = pygame.display.set_mode((800, 600))
         self.font = pygame.font.Font(None, 36)
         self.small_font = pygame.font.Font(None, 24)
+        self.smaller_font = pygame.font.Font(None, 20) # Added smaller font
         
         # Load full image if available (768x1024)
         if 'full_body' in self.hero_data['images']:
@@ -109,7 +110,7 @@ class HeroDetailScreen:
         # Draw description lines
         y_pos = 60
         for line in desc_lines:
-            description_text = self.small_font.render(line, True, (0, 0, 0))
+            description_text = self.smaller_font.render(line, True, (0, 0, 0)) # Use smaller font
             self.screen.blit(description_text, (20, y_pos))
             y_pos += 25
         
@@ -125,7 +126,7 @@ class HeroDetailScreen:
         stats = self.hero_data['level_1_stats']
         y_pos = stats_y + 40
         for stat, value in stats.items():
-            stat_text = self.font.render(f"{stat}: {value}", True, (0, 0, 0))
+            stat_text = self.smaller_font.render(f"{stat}: {value}", True, (0, 0, 0)) # Use smaller font
             self.screen.blit(stat_text, (40, y_pos))
             y_pos += 40
         
@@ -141,7 +142,7 @@ class HeroDetailScreen:
         
         # Display equipment slots
         for index, (slot, label, slot_type) in enumerate([
-            (self.enhancement_slot, "Enhancement", "enhancement"),
+            (self.enhancement_slot, "Augment", "enhancement"), # Renamed Enhancement to Augment
             (self.gear_slot, "Gear", "gear"),
             (self.stim_slot, "Stim", "stim")
         ]):
@@ -158,14 +159,14 @@ class HeroDetailScreen:
                 image_rect = image.get_rect(center=slot.center)
                 self.screen.blit(image, image_rect)
             
-            text = self.small_font.render(label, True, (0, 0, 0))
+            text = self.smaller_font.render(label, True, (0, 0, 0)) # Use smaller font
             text_rect = text.get_rect(centerx=slot.centerx, bottom=slot.top - 5)
             self.screen.blit(text, text_rect)
         
         # Back button
         pygame.draw.rect(self.screen, (200, 200, 200), self.back_button)
         pygame.draw.rect(self.screen, (100, 100, 100), self.back_button, 2)
-        back_text = self.small_font.render("Back", True, (0, 0, 0))
+        back_text = self.smaller_font.render("Back", True, (0, 0, 0)) # Use smaller font
         text_rect = back_text.get_rect(center=self.back_button.center)
         self.screen.blit(back_text, text_rect)
         

@@ -1,15 +1,3 @@
-# Jovian Cards: Game Concept and Implementation Guide
-
-## Overview
-Jovian Cards is a casual RPG card game where players collect heroes and battle enemies in a card-based system. The game features a roguelike progression with temporary card collections during runs and permanent hero upgrades between runs.
-
-## Gameplay Features
-- **Main Loop**: Battle enemies, progress through rooms, and encounter shops/events.
-- **Boss Fights**: Minibosses halfway through a run and a final boss at the end.
-- **Hero Progression**: Collect heroes and upgrade them permanently using currencies/materials.
-
-## Implementation Guide
-
 ### Stage One: Character Screen
 This stage focuses on creating a character selection screen.
 
@@ -37,6 +25,7 @@ This stage focuses on creating a character selection screen.
    - Heroes start at Rank 1 and can progress to Rank 5.
    - Each rank increases base stats and changes hero appearance.
    - Hero images follow the naming convention: hero_X.png (where X is the rank number).
+   - On the hero details screen, hero ranks are shown as small icons under the heroes name, 1 for each rank. The icones are data/assets/gui/jupiter.png. These icones are 512x512 and need to eb scaled down substantially without losing their quality
 
 5. **Tooltips**:
    - Mousing over equipment slots shows a tooltip with slot purpose or equipped gear details.
@@ -130,25 +119,3 @@ data/
 ### Notes
 - Placeholder functionality for equipping gear and home screen navigation will be added in future stages.
 ```
-
-Stage Two: Equipment System
-Since Stage One focused on viewing heroes and their stats, the natural progression would be implementing the equipment functionality:
-
-Equipment Collection UI
-
-Create a gear inventory screen
-Allow viewing available equipment items
-Display equipment stats and rarity
-Equipping Mechanics
-
-Add ability to drag and drop or select gear for equipment slots
-Implement stat changes when equipping/unequipping items
-Add visual indicators for equipped vs. unequipped items
-Equipment Tooltips Enhancement
-
-Add detailed tooltips with item stats, effects, and comparisons
-Show preview of stat changes when hovering over potential equipment
-Equipment Sorting/Filtering
-
-Add ability to sort by rarity, type, or stat bonus
-This would complete the character management aspect before moving to Stage Three, which could focus on implementing the combat system with the equipped heroes.
