@@ -1,0 +1,14 @@
+{
+  "name": "Lact-X",
+  "slot": "stim",
+  "rarity": "rare",
+  "stats": {
+    "HP": 15
+  },
+  "ability": "Enhance Production",
+  "description": "Synthetic stimulant that boosts the body's healing capabilities.",
+  "image": "lact_x.png",
+  "level_scaling": {
+    "HP": 5
+  }
+}

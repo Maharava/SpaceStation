@@ -1,0 +1,14 @@
+{
+  "name": "Sweat Band",
+  "slot": "gear",
+  "rarity": "common",
+  "stats": {
+    "Armour": 5
+  },
+  "ability": "None",
+  "description": "Simple headband that absorbs sweat and provides minor protection.",
+  "image": "sweat_band.png",
+  "level_scaling": {
+    "Armour": 2
+  }
+}

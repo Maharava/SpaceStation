@@ -5,5 +5,8 @@
     "HP": 110,
     "Armour": 25,
     "Attack": 30
-  }
+  },
+  "hp_level": 12,
+  "armour_level": 2,
+  "attack_level": 3
 }

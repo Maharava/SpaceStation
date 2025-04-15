@@ -1,9 +1,0 @@
-{
-  "name": "Sweat Band",
-  "rarity": "common",
-  "stats": {
-    "Armour": 5
-  },
-  "ability": "Soak up",
-  "image": "sweat_band.png"
-}

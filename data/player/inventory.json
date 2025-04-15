@@ -1,0 +1,80 @@
+{
+  "items": [
+    {
+      "name": "Sweat Band",
+      "slot": "gear",
+      "rarity": "common",
+      "stats": {
+        "Armour": 5
+      },
+      "ability": "None",
+      "description": "Simple headband that absorbs sweat and provides minor protection.",
+      "image": "sweat_band.png",
+      "level_scaling": {
+        "Armour": 2
+      },
+      "level": 1,
+      "id": "sb008"
+    },
+    {
+      "name": "Neural Interface",
+      "slot": "augment",
+      "rarity": "rare",
+      "stats": {
+        "Attack": 10
+      },
+      "ability": "Reflex Tuning",
+      "description": "Neural enhancer that improves combat reflexes.",
+      "image": "neural_interface.png",
+      "level_scaling": {
+        "Attack": 2
+      },
+      "level": 1,
+      "id": "ni013"
+    },
+    {
+      "name": "Neural Interface",
+      "slot": "augment",
+      "rarity": "common",
+      "stats": {
+        "Attack": 5
+      },
+      "ability": "None",
+      "description": "",
+      "level": 1,
+      "id": "ni014"
+    },
+    {
+      "name": "Neural Interface",
+      "slot": "augment",
+      "rarity": "rare",
+      "stats": {
+        "Attack": 10
+      },
+      "ability": "Reflex Tuning",
+      "description": "Neural enhancer that improves combat reflexes.",
+      "image": "neural_interface.png",
+      "level": 1,
+      "id": "ni011",
+      "level_scaling": {
+        "Attack": 2
+      }
+    },
+    {
+      "name": "Lact-X",
+      "slot": "stim",
+      "rarity": "rare",
+      "stats": {
+        "HP": 15
+      },
+      "ability": "Enhance Production",
+      "description": "Synthetic stimulant that boosts the body's healing capabilities.",
+      "image": "lact_x.png",
+      "level_scaling": {
+        "HP": 5
+      },
+      "level": 1,
+      "id": "l001"
+    }
+  ]
+}

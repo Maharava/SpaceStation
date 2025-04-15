@@ -4,6 +4,7 @@
 
 import pygame
 from ui.character_screen import CharacterScreen
+from utils.testing import while_testing
 
 class Game:
     def __init__(self):
@@ -41,6 +42,10 @@ class Game:
 
     def run(self):
         try:
+            # Add test items and configurations
+            while_testing()
+            
+            # Start the character screen
             character_screen = CharacterScreen(self.screen)
             character_screen.run()
         finally:

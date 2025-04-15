@@ -2,22 +2,95 @@
   "heroes": [
     {
       "name": "Europa",
-      "level": 1,
+      "level": 2,
       "XP": 0,
       "rank": 1,
-      "equipment": []
+      "equipment": {
+        "augment": null,
+        "gear": null,
+        "stim": null
+      },
+      "abilities": [],
+      "level_1_stats": {
+        "HP": 100,
+        "Armour": 30,
+        "Attack": 30
+      },
+      "current_stats": {
+        "HP": 110,
+        "Armour": 33,
+        "Attack": 33
+      },
+      "combined_stats": {
+        "HP": 100,
+        "Armour": 30,
+        "Attack": 30
+      }
     },
     {
       "name": "Ganymede",
       "level": 1,
       "XP": 0,
       "rank": 1,
-      "equipment": [
-        {
+      "equipment": {
+        "augment": {
+          "name": "Neural Interface",
+          "slot": "augment",
+          "rarity": "rare",
+          "stats": {
+            "Attack": 10
+          },
+          "ability": "Reflex Tuning",
+          "description": "Neural enhancer that improves combat reflexes.",
+          "image": "neural_interface.png",
+          "level": 3,
+          "id": "ni012",
+          "level_scaling": {
+            "Attack": 2
+          }
+        },
+        "gear": {
           "name": "Sweat Band",
-          "rarity": "common"
+          "slot": "gear",
+          "rarity": "common",
+          "stats": {
+            "Armour": 5
+          },
+          "ability": "None",
+          "description": "Simple headband that absorbs sweat and provides minor protection.",
+          "image": "sweat_band.png",
+          "level_scaling": {
+            "Armour": 2
+          },
+          "level": 1,
+          "id": "sb009"
+        },
+        "stim": {
+          "name": "Lact-X",
+          "slot": "stim",
+          "rarity": "rare",
+          "stats": {
+            "HP": 15
+          },
+          "ability": "Enhance Production",
+          "description": "Synthetic stimulant that boosts the body's healing capabilities.",
+          "image": "lact_x.png",
+          "level_scaling": {
+            "HP": 5
+          },
+          "level": 1,
+          "id": "l015"
         }
-      ]
+      },
+      "abilities": [
+        "Reflex Tuning",
+        "Enhance Production"
+      ],
+      "combined_stats": {
+        "HP": 125,
+        "Armour": 32,
+        "Attack": 44
+      }
     }
   ]
 }

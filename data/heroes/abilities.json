@@ -1,0 +1,20 @@
+{
+  "Enhance Production": {
+    "description": "Each turn, heal 2% of your HP.",
+    "image": "enhance_production.png",
+    "effect": "passive_healing",
+    "params": {
+      "healing_percent": 0.02,
+      "trigger": "turn_end"
+    }
+  },
+  "Reflex Tuning": {
+    "description": "At the end of your turn, attack once more.",
+    "image": "reflex_tuning.png",
+    "effect": "extra_attack",
+    "params": {
+      "attacks": 1,
+      "trigger": "turn_end"
+    }
+  }
+}

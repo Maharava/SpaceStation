@@ -1,0 +1,8 @@
+{
+  "name": "Neural Interface",
+  "slot": "augment",
+  "rarity": "common",
+  "stats": {
+    "Attack": 5
+  }
+}
