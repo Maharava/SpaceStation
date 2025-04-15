@@ -3,7 +3,7 @@
 # Main game logic for Jovian Cards
 
 import pygame
-from ui.character_screen import CharacterScreen
+from screens.character_screen import CharacterScreen
 from utils.testing import while_testing
 
 class Game:

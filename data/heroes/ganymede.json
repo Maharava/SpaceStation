@@ -8,5 +8,31 @@
   },
   "hp_level": 12,
   "armour_level": 2,
-  "attack_level": 3
+  "attack_level": 3,
+  "dialogue": {
+    "rank1": [
+      "I analyze every situation carefully.",
+      "Tactics and strategy are my specialties.",
+      "Let me plan our next move.",
+      "I see patterns where others see chaos.",
+      "A good plan is worth a thousand soldiers."
+    ],
+    "rank2": [
+      "I've been studying ancient battle tactics.",
+      "My strategic models have improved significantly.",
+      "I've calculated several optimal approaches.",
+      "The others now come to me for tactical advice.",
+      "My prediction algorithms are reaching new heights.",
+      "Would you like to review my battle simulations?"
+    ],
+    "rank3": [
+      "Few can match my tactical brilliance now.",
+      "I've developed revolutionary battle strategies.",
+      "Leaders seek my counsel before major campaigns.",
+      "My predictions have saved countless lives.",
+      "I can anticipate enemy movements with 98% accuracy.",
+      "I've written several tactical manuals now.",
+      "My name is known throughout strategic circles."
+    ]
+  }
 }

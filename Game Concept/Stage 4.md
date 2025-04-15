@@ -53,7 +53,7 @@ A new `screens` folder will organize all screen-related files:
 - `screens/character_screen.py`: Move existing character roster code here
 - `screens/hero_detail_screen.py`: Move existing hero detail code here
 - `utils/screen_manager.py`: Handle transitions between screens
-- `config/home_screen.json`: Store UI positioning information
+- `src/config/home_screen.json`: Store UI positioning information
 
 ### Navigation System
 The screen manager will use a stack-based approach:
@@ -98,3 +98,10 @@ Positioning that works with all possible secretaries
 ## Navigation Edge Cases:
 What happens when rapidly switching screens?
 How to prevent multiple screen instances?
+
+
+Issues
+Back+Home buttons on every screen
+back/home buttons dont work on hero details
+sec button not correct
+Setting sec doesnt show her in home screen

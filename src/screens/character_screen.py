@@ -1,16 +1,15 @@
-# jovian_cards/src/ui/character_screen.py
+# src/screens/character_screen.py
 
 import pygame
-# Fix imports - remove src. prefix
 from ui.ui_elements import HeroTile
-from utils.resource_loader import load_heroes
+from utils.resource_loader import load_heroes, load_image
 from utils.currency import get_currencies
-from utils.resource_loader import load_image
 from utils.hero_progression import can_level_up
 
 class CharacterScreen:
-    def __init__(self, screen):
-        self.screen = screen
+    def __init__(self, screen_manager):
+        self.screen_manager = screen_manager
+        self.screen = screen_manager.screen
         self.heroes = load_heroes()
         self.selected_hero = None
         self.font = pygame.font.Font(None, 36)
@@ -20,13 +19,16 @@ class CharacterScreen:
         try:
             self.background = load_image("ui/backgrounds/roster.png")
             # Scale to match screen size
-            self.background = pygame.transform.scale(self.background, (screen.get_width(), screen.get_height()))
+            self.background = pygame.transform.scale(self.background, (self.screen.get_width(), self.screen.get_height()))
         except Exception as e:
             print(f"Could not load background: {e}")
             self.background = None
         
-        # Home button (non-functional)
-        self.home_button = pygame.Rect(700, 50, 80, 30)  # Changed Y from 20 to 50
+        # Back button (to return to home screen)
+        self.back_button = pygame.Rect(700, 50, 80, 30)
+
+        # Add home button
+        self.home_button = pygame.Rect(700, 20, 80, 30)
 
         # Load essence icon
         try:
@@ -85,7 +87,14 @@ class CharacterScreen:
         
         self.display_heroes()
         
-        # Draw home button (non-functional)
+        # Draw back button
+        pygame.draw.rect(self.screen, (200, 200, 200), self.back_button)
+        pygame.draw.rect(self.screen, (100, 100, 100), self.back_button, 2)
+        back_text = self.small_font.render("Back", True, (0, 0, 0))
+        text_rect = back_text.get_rect(center=self.back_button.center)
+        self.screen.blit(back_text, text_rect)
+        
+        # Draw home button
         pygame.draw.rect(self.screen, (200, 200, 200), self.home_button)
         pygame.draw.rect(self.screen, (100, 100, 100), self.home_button, 2)
         home_text = self.small_font.render("Home", True, (0, 0, 0))
@@ -219,6 +228,15 @@ class CharacterScreen:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
             
+            # Check if back button was clicked
+            if self.back_button.collidepoint(mouse_pos):
+                return False  # Signal to return to previous screen
+            
+            # Check if home button clicked
+            if self.home_button.collidepoint(mouse_pos):
+                self.screen_manager.set_home()
+                return True
+            
             # Check if a hero tile was clicked
             for index, hero in enumerate(self.heroes):
                 tile = HeroTile(hero)
@@ -232,20 +250,21 @@ class CharacterScreen:
             
             # Check if "View Details" button was clicked
             if self.selected_hero and hasattr(self, 'detail_button') and self.detail_button.collidepoint(mouse_pos):
-                from ui.hero_detail_screen import HeroDetailScreen
-                # Pass the entire hero data object instead of just the name
-                detail_screen = HeroDetailScreen(self.selected_hero)
-                detail_screen.run()
+                from screens.hero_detail_screen import HeroDetailScreen
+                detail_screen = HeroDetailScreen(self.selected_hero, self.screen_manager)
+                self.screen_manager.push(detail_screen)
                 self.selected_hero = None
+                
+        return True
 
     def run(self):
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                self.handle_input(event)
+        self.draw()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return False
             
-            self.draw()
+            result = self.handle_input(event)
+            if result is False:
+                return False
         
-        pygame.quit()
+        return True

@@ -1,0 +1,76 @@
+{
+  "background": "ui/backgrounds/home_screen.png",
+  "screen_resolution": [1280, 720],
+  "ui_elements": {
+    "currency_display": {
+      "position": [700, 10],
+      "size": [90, 30],
+      "layout": "horizontal",
+      "spacing": 20,
+      "icon_size": [24, 24],
+      "start_x": 250,
+      "y": 20,
+      "width": 90,
+      "height": 30,
+      "spacing": 100
+    },
+    "navigation_buttons": {
+      "position": [640, 650],
+      "size": [600, 80],
+      "layout": "horizontal",
+      "spacing": 40,
+      "buttons": [
+        {
+          "name": "character_roster",
+          "label": "Heroes",
+          "size": [150, 50],
+          "action": "open_character_screen",
+          "position": [150, 500],
+          "text": "Heroes"
+        },
+        {
+          "name": "start_run",
+          "label": "Start Run",
+          "size": [150, 50],
+          "action": "coming_soon",
+          "position": [325, 500],
+          "text": "Start Run"
+        },
+        {
+          "name": "develop",
+          "label": "Develop",
+          "size": [150, 50],
+          "action": "coming_soon",
+          "position": [500, 500],
+          "text": "Develop"
+        }
+      ]
+    },
+    "secretary": {
+      "position": [50, 200],
+      "size": [300, 500],
+      "dialogue_box": {
+        "position": [400, 250],
+        "size": [300, 100],
+        "background_color": [50, 50, 50, 180],
+        "text_color": [255, 255, 255],
+        "font_size": 24,
+        "padding": 15,
+        "fade_duration": 5
+      },
+      "position": [50, 150],
+      "height": 400
+    }
+  },
+  "button_positions": {
+    "roster": [150, 500, 150, 50],
+    "run": [325, 500, 150, 50],
+    "develop": [500, 500, 150, 50],
+    "home": [700, 50, 80, 30]
+  },
+  "dialogue": {
+    "position": [350, 250],
+    "width": 400,
+    "height": 100
+  }
+}

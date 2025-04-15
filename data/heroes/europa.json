@@ -8,5 +8,31 @@
   },
   "hp_level": 10,
   "armour_level": 3,
-  "attack_level": 3
+  "attack_level": 3,
+  "dialogue": {
+    "rank1": [
+      "I stand ready for battle.",
+      "The moons of Jupiter have made me strong.",
+      "I will protect you with my life.",
+      "My shield is yours to command.",
+      "Call upon me whenever you need strength."
+    ],
+    "rank2": [
+      "My training is paying off.",
+      "I've been studying new combat techniques.",
+      "The other heroes respect my strength now.",
+      "I feel more connected to this place every day.",
+      "My armor has been upgraded, can you tell?",
+      "When do we head into the next battle?"
+    ],
+    "rank3": [
+      "I've earned the respect of many warriors now.",
+      "My blade has tasted victory in a hundred battles.",
+      "The scars I bear are badges of honor.",
+      "I've been teaching the newer recruits.",
+      "My reputation grows with each victory.",
+      "I'm considered one of the elites now.",
+      "Few can match my battlefield experience."
+    ]
+  }
 }

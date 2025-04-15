@@ -19,9 +19,10 @@ from utils.hero_progression import (
 )
 
 class HeroDetailScreen:
-    def __init__(self, hero_data):
+    def __init__(self, hero_data, screen_manager):
+        self.screen_manager = screen_manager
+        self.screen = screen_manager.screen
         self.hero_data = hero_data
-        self.screen = pygame.display.set_mode((800, 600))
         self.font = pygame.font.Font(None, 36)
         self.small_font = pygame.font.Font(None, 24)
         self.stat_value_font = pygame.font.Font(None, 40)
@@ -95,6 +96,34 @@ class HeroDetailScreen:
         # Add level up and rank up buttons (will be updated in draw)
         self.level_up_button = pygame.Rect(0, 0, 80, 25)
         self.rank_up_button = pygame.Rect(0, 0, 80, 25)
+        
+        # Add secretary button with selection state
+        try:
+            self.secretary_button_selected = load_image("ui/sec_button_selected.png")
+            self.secretary_button_selected = pygame.transform.scale(self.secretary_button_selected, (40, 40))
+            
+            self.secretary_button_unselected = load_image("ui/sec_button.png")
+            self.secretary_button_unselected = pygame.transform.scale(self.secretary_button_unselected, (40, 40))
+            
+            self.secretary_button = pygame.Rect(self.screen.get_width() - 50, 
+                                              self.screen.get_height() - 50, 40, 40)
+            
+            # Check if this hero is already the secretary
+            self.is_secretary = self.check_if_secretary()
+        except Exception as e:
+            print(f"Could not load secretary buttons: {e}")
+            self.secretary_button = pygame.Rect(self.screen.get_width() - 50, 
+                                              self.screen.get_height() - 50, 40, 40)
+            self.secretary_button_selected = None
+            self.secretary_button_unselected = None
+            self.is_secretary = False
+            
+        # For notifications
+        self.notification_text = ""
+        self.notification_time = 0
+
+        # Add home button
+        self.home_button = pygame.Rect(700, 20, 80, 30)
     
     def load_stat_icons(self):
         icon_mapping = {
@@ -304,8 +333,36 @@ class HeroDetailScreen:
         text_rect = back_text.get_rect(center=self.back_button.center)
         self.screen.blit(back_text, text_rect)
         
+        # Draw secretary button based on current state
+        pygame.draw.rect(self.screen, (200, 200, 200), self.secretary_button)
+        if self.is_secretary and self.secretary_button_selected:
+            self.screen.blit(self.secretary_button_selected, self.secretary_button)
+        elif not self.is_secretary and self.secretary_button_unselected:
+            self.screen.blit(self.secretary_button_unselected, self.secretary_button)
+        else:
+            sec_text = self.small_font.render("SEC", True, (0, 0, 0))
+            sec_rect = sec_text.get_rect(center=self.secretary_button.center)
+            self.screen.blit(sec_text, sec_rect)
+        
         # Draw tooltip using the Tooltip class
         self.tooltip.draw(self.screen)
+        
+        # Draw notification if active
+        if self.notification_text and pygame.time.get_ticks() - self.notification_time < 2000:
+            notif_text = self.small_font.render(self.notification_text, True, (0, 0, 0))
+            notif_bg = notif_text.get_rect(center=(self.secretary_button.centerx, 
+                                                 self.secretary_button.top - 20))
+            notif_bg.inflate_ip(10, 6)
+            pygame.draw.rect(self.screen, (240, 240, 240), notif_bg)
+            pygame.draw.rect(self.screen, (100, 100, 100), notif_bg, 1)
+            self.screen.blit(notif_text, notif_text.get_rect(center=notif_bg.center))
+
+        # Draw home button
+        pygame.draw.rect(self.screen, (200, 200, 200), self.home_button)
+        pygame.draw.rect(self.screen, (100, 100, 100), self.home_button, 2)
+        home_text = self.small_font.render("Home", True, (0, 0, 0))
+        text_rect = home_text.get_rect(center=self.home_button.center)
+        self.screen.blit(home_text, text_rect)
         
         pygame.display.flip()
     
@@ -490,6 +547,15 @@ class HeroDetailScreen:
                             # Refresh the display
                             self.draw()
                         return True
+                
+                # Check secretary button
+                if self.secretary_button.collidepoint(mouse_pos):
+                    self.set_as_secretary()
+
+                # Check if home button clicked
+                if self.home_button.collidepoint(mouse_pos):
+                    self.screen_manager.set_home()
+                    return True
         
         return True
     
@@ -636,6 +702,42 @@ class HeroDetailScreen:
         except Exception as e:
             print(f"Error saving hero data: {e}")
             
+    def set_as_secretary(self):
+        """Set or unset this hero as secretary"""
+        try:
+            # Create player directory if needed
+            os.makedirs(os.path.join(DATA_DIR, "player"), exist_ok=True)
+            secretary_path = os.path.join(DATA_DIR, "player", "secretary.json")
+            
+            if self.check_if_secretary():
+                # Unset as secretary
+                if os.path.exists(secretary_path):
+                    os.remove(secretary_path)
+                self.notification_text = "Removed as Secretary"
+            else:
+                # Set as secretary
+                with open(secretary_path, "w") as f:
+                    json.dump({"hero_id": self.hero_data.get("id")}, f)
+                self.notification_text = "Set as Secretary!"
+                
+            self.notification_time = pygame.time.get_ticks()
+        except Exception as e:
+            print(f"Error setting secretary: {e}")
+            self.notification_text = "Error!"
+            self.notification_time = pygame.time.get_ticks()
+
+    def check_if_secretary(self):
+        """Check if this hero is the current secretary"""
+        try:
+            secretary_path = os.path.join(DATA_DIR, "player", "secretary.json")
+            if os.path.exists(secretary_path):
+                with open(secretary_path, "r") as f:
+                    data = json.load(f)
+                    return data.get("hero_id") == self.hero_data.get("id")
+        except Exception as e:
+            print(f"Error checking secretary status: {e}")
+        return False
+    
     def run(self):
         running = True
         while running:
