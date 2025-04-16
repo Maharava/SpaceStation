@@ -229,6 +229,9 @@ class HomeScreen:
         return True
     
     def run(self):
+        # Add this line to reload secretary data every time we return to home screen
+        self.secretary = self.load_secretary()
+        
         if not self.handle_events():
             return False
             

@@ -24,9 +24,6 @@ class CharacterScreen:
             print(f"Could not load background: {e}")
             self.background = None
         
-        # Back button (to return to home screen)
-        self.back_button = pygame.Rect(700, 50, 80, 30)
-
         # Add home button
         self.home_button = pygame.Rect(700, 20, 80, 30)
 
@@ -86,13 +83,6 @@ class CharacterScreen:
         self.screen.blit(title_text, title_rect)
         
         self.display_heroes()
-        
-        # Draw back button
-        pygame.draw.rect(self.screen, (200, 200, 200), self.back_button)
-        pygame.draw.rect(self.screen, (100, 100, 100), self.back_button, 2)
-        back_text = self.small_font.render("Back", True, (0, 0, 0))
-        text_rect = back_text.get_rect(center=self.back_button.center)
-        self.screen.blit(back_text, text_rect)
         
         # Draw home button
         pygame.draw.rect(self.screen, (200, 200, 200), self.home_button)
@@ -228,9 +218,9 @@ class CharacterScreen:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
             
-            # Check if back button was clicked
-            if self.back_button.collidepoint(mouse_pos):
-                return False  # Signal to return to previous screen
+            # Remove back button check
+            # if self.back_button.collidepoint(mouse_pos):
+            #     return False  # Signal to return to previous screen
             
             # Check if home button clicked
             if self.home_button.collidepoint(mouse_pos):

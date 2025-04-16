@@ -99,10 +99,11 @@ class HeroDetailScreen:
         
         # Add secretary button with selection state
         try:
-            self.secretary_button_selected = load_image("ui/sec_button_selected.png")
+            # Fix secretary button paths to match the correct filenames
+            self.secretary_button_selected = load_image("ui/sec_but_selected.png")
             self.secretary_button_selected = pygame.transform.scale(self.secretary_button_selected, (40, 40))
             
-            self.secretary_button_unselected = load_image("ui/sec_button.png")
+            self.secretary_button_unselected = load_image("ui/sec_but_unselected.png")
             self.secretary_button_unselected = pygame.transform.scale(self.secretary_button_unselected, (40, 40))
             
             self.secretary_button = pygame.Rect(self.screen.get_width() - 50, 
@@ -121,9 +122,6 @@ class HeroDetailScreen:
         # For notifications
         self.notification_text = ""
         self.notification_time = 0
-
-        # Add home button
-        self.home_button = pygame.Rect(700, 20, 80, 30)
     
     def load_stat_icons(self):
         icon_mapping = {
@@ -325,8 +323,9 @@ class HeroDetailScreen:
         # Draw inventory items
         self.draw_inventory()
         
-        # Back button - position it below the inventory panel
-        self.back_button.y = self.inventory_panel.bottom + 10
+        # Replace back button with actual back button
+        self.back_button.x = 20
+        self.back_button.y = self.inventory_panel.bottom + 15
         pygame.draw.rect(self.screen, (200, 200, 200), self.back_button)
         pygame.draw.rect(self.screen, (100, 100, 100), self.back_button, 2)
         back_text = self.small_font.render("Back", True, (0, 0, 0))
@@ -346,23 +345,6 @@ class HeroDetailScreen:
         
         # Draw tooltip using the Tooltip class
         self.tooltip.draw(self.screen)
-        
-        # Draw notification if active
-        if self.notification_text and pygame.time.get_ticks() - self.notification_time < 2000:
-            notif_text = self.small_font.render(self.notification_text, True, (0, 0, 0))
-            notif_bg = notif_text.get_rect(center=(self.secretary_button.centerx, 
-                                                 self.secretary_button.top - 20))
-            notif_bg.inflate_ip(10, 6)
-            pygame.draw.rect(self.screen, (240, 240, 240), notif_bg)
-            pygame.draw.rect(self.screen, (100, 100, 100), notif_bg, 1)
-            self.screen.blit(notif_text, notif_text.get_rect(center=notif_bg.center))
-
-        # Draw home button
-        pygame.draw.rect(self.screen, (200, 200, 200), self.home_button)
-        pygame.draw.rect(self.screen, (100, 100, 100), self.home_button, 2)
-        home_text = self.small_font.render("Home", True, (0, 0, 0))
-        text_rect = home_text.get_rect(center=self.home_button.center)
-        self.screen.blit(home_text, text_rect)
         
         pygame.display.flip()
     
@@ -709,22 +691,27 @@ class HeroDetailScreen:
             os.makedirs(os.path.join(DATA_DIR, "player"), exist_ok=True)
             secretary_path = os.path.join(DATA_DIR, "player", "secretary.json")
             
+            # Make sure the hero has an ID (use name if no ID)
+            hero_id = self.hero_data.get("id", self.hero_data.get("name"))
+            if not hero_id:
+                print("Error: Hero has no ID or name")
+                return
+                
             if self.check_if_secretary():
                 # Unset as secretary
                 if os.path.exists(secretary_path):
                     os.remove(secretary_path)
-                self.notification_text = "Removed as Secretary"
+                # No notifications, just update state
+                self.is_secretary = False
             else:
                 # Set as secretary
                 with open(secretary_path, "w") as f:
-                    json.dump({"hero_id": self.hero_data.get("id")}, f)
-                self.notification_text = "Set as Secretary!"
-                
-            self.notification_time = pygame.time.get_ticks()
+                    json.dump({"hero_id": hero_id}, f)
+                # No notifications, just update state
+                self.is_secretary = True
+                    
         except Exception as e:
             print(f"Error setting secretary: {e}")
-            self.notification_text = "Error!"
-            self.notification_time = pygame.time.get_ticks()
 
     def check_if_secretary(self):
         """Check if this hero is the current secretary"""
